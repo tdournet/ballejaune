@@ -9,7 +9,6 @@ jobs:
   build_and_push:
     env:
       IMAGE_URL: ${{ secrets.SCALEWAY_REGION_URL }}/${{ secrets.SCALEWAY_NAMESPACE }}/ballejaune:latest
-      S3_PROVIDER: scw-fr-par
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
