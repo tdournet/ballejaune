@@ -199,7 +199,7 @@ async function makeReservationRequests(params: ReservationParams) {
 // Automatically book next Thursday at 19:00
 const reservationParams: ReservationParams = {
   date: getNextThursday(),   // Next Thursday
-  timeStart: '19:00',        // 19:00 (7:00 PM)
+  timeStart: '18:00',        // 19:00 (7:00 PM)
   duration: 60,              // Duration in minutes
   schedule: 32101            // Schedule ID (optional, defaults to 32101)
 };
