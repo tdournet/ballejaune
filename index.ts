@@ -1,3 +1,7 @@
+const BJDEVICE = process.env.BJDEVICE ?? '';
+const BJID = process.env.BJID ?? '';
+const BOOKING_TIME = process.env.BOOKING_TIME ?? '19:00';
+
 interface ReservationParams {
   date: string; // Format: YYYY-MM-DD (e.g., "2026-01-22")
   timeStart: string; // Format: HH:MM (e.g., "18:00")
@@ -62,7 +66,7 @@ async function makeReservationRequests(params: ReservationParams) {
   // First request - HEAD request to get BJSESSIONID
   console.log('\nMaking first request to get BJSESSIONID...');
   
-  const firstRequestCookies = 'bjlanguage=fr_FR; _ga=GA1.1.647834952.1768729125; bjcconsent=dismiss; bjid=VHZvZzJteHZPQzlSeVpjMTdMSjROcFRoSkdIMkFIZmYwM3lzQWU1RDR3aE1zWWZMUy94dGdSNENpemtuUGsvU00xVE8rUk5GcTJJSG5KTnU2Y05naXJ2ZFIzK3lZLytaRTFkK3hyWTFId2J5cHJ0R3hEeFU4aFgrZFZweUZXcTY6OuXNdVvSVJvydwsl%2Fdql9ME%3D; bjnotifysuggest=deny; bjdevice=R1Z0SnlGMjU2VU1scGM4YXgyRmRrVmttSndySyt2SnZ4azJVMzhKSVFGRzVjMUFWK2U5VzJacjBhRk9UM1JHL25ob0FETmFKOFhraElYcTYrWHNlRHVoTituOS91Q0xmM2VxelZKS21LV0U9OjrdiK8R7D3JdI2UEvYq7450; _ga_MFSD70PBPQ=GS2.1.s1768729124$o1$g1$t1768729215$j59$l0$h0';
+  const firstRequestCookies = `bjlanguage=fr_FR; _ga=GA1.1.647834952.1768729125; bjcconsent=dismiss; bjid=${BJID}; bjnotifysuggest=deny; bjdevice=${BJDEVICE}; _ga_MFSD70PBPQ=GS2.1.s1768729124$o1$g1$t1768729215$j59$l0$h0`;
   
   const firstResponse = await fetch('https://ballejaune.com/reservation/', {
     method: 'HEAD',
@@ -111,7 +115,7 @@ async function makeReservationRequests(params: ReservationParams) {
   // Second request - POST to /reservation/switch to get CSRF token
   console.log('\nMaking second request to get CSRF token...');
   
-  const switchRequestCookies = `bjlanguage=fr_FR; _ga=GA1.1.647834952.1768729125; bjcconsent=dismiss; bjid=VHZvZzJteHZPQzlSeVpjMTdMSjROcFRoSkdIMkFIZmYwM3lzQWU1RDR3aE1zWWZMUy94dGdSNENpemtuUGsvU00xVE8rUk5GcTJJSG5KTnU2Y05naXJ2ZFIzK3lZLytaRTFkK3hyWTFId2J5cHJ0R3hEeFU4aFgrZFZweUZXcTY6OuXNdVvSVJvydwsl%2Fdql9ME%3D; bjnotifysuggest=deny; BJSESSIONID=${bjSessionId}; bjdevice=RDhxeXNXcDVua1RWWXJ0bmM3N29CTXNKaS9CT1Q5eDZRQnNxWTdTTmc4RVRBZGdwRzlIUEhXNW5HbWhTNGFsNG5nUEhaNVV2NEF0MkFiWFNkNTB6dElCampwVTRTQlN1eTBIYTB5dEhSWlk9Ojq91WLd2UjDhp8Hxa6aM05w; _ga_MFSD70PBPQ=GS2.1.s1768729124$o1$g1$t1768730089$j53$l0$h0`;
+  const switchRequestCookies = `bjlanguage=fr_FR; _ga=GA1.1.647834952.1768729125; bjcconsent=dismiss; bjid=${BJID}; bjnotifysuggest=deny; BJSESSIONID=${bjSessionId}; bjdevice=${BJDEVICE}; _ga_MFSD70PBPQ=GS2.1.s1768729124$o1$g1$t1768730089$j53$l0$h0`;
   
   const switchResponse = await fetch('https://ballejaune.com/reservation/switch', {
     method: 'POST',
@@ -155,7 +159,7 @@ async function makeReservationRequests(params: ReservationParams) {
   console.log('\nMaking third request to process reservation...');
   
   // Combine original cookies with BJSESSIONID
-  const thirdRequestCookies = `bjlanguage=fr_FR; _ga=GA1.1.1760199893.1763891003; bjcconsent=dismiss; BJSESSIONID=${bjSessionId}; bjid=NmtBRzNmRWQvanlFbStBUkc3K3JyYlQ0YkFyZFk3SGU0S1U5UjBYbmUxVEtTZlgySGNkdm5ZaUhIZUlLVUtscTdSc2E3bmYrT056ZUVQd2NoZmtMc2lTNDhXUkdqSzUvdFp1NW8wUWhQaktKSmN6OXBseE9pMGdFRG55ekFwbmw6OkKzyMW8N9X2O07pb%2BfaM3Y%3D; bjdevice=QWw1OGZ3Q0NDZGh6ZnFYVFdvVTJCU3lCZDZJSHNIYndMWld3S1JacUdlUzdRd2ZOaHZtRXJUVjVxcTZnY1JsTFpFNXNjRjJBWGNFbmtmalNvQUVVMlMxaVR6TXZjZ09NcjdSRGNPOTZndFk9OjpCL1N9U2yghXH%2BExuDYRrN; _ga_MFSD70PBPQ=GS2.1.s1768728579$o14$g1$t1768728618$j21$l0$h0`;
+  const thirdRequestCookies = `bjlanguage=fr_FR; _ga=GA1.1.1760199893.1763891003; bjcconsent=dismiss; BJSESSIONID=${bjSessionId}; bjid=${BJID}; bjdevice=${BJDEVICE}; _ga_MFSD70PBPQ=GS2.1.s1768728579$o14$g1$t1768728618$j21$l0$h0`;
   
   // Build post data with the extracted CSRF token
   const postData = `action_type=create&choice=with_member&with_member%5B%5D=2064512&with_member_guests_number=1&with_member_guests_names=&with_guest_guests_number=1&with_guest_name1=&with_guest_name2=&with_guest_name3=&with_guest_name4=&default_date=${date}&default_timestart=${encodeURIComponent(timeStart)}&default_timeend=${encodeURIComponent(timeEnd)}&default_duration=${duration}&default_schedule=${schedule}&default_row=0&poll_request_id=0&csrf_reservation=${csrfToken}`;
@@ -196,12 +200,11 @@ async function makeReservationRequests(params: ReservationParams) {
   };
 }
 
-// Automatically book next Thursday at 19:00
 const reservationParams: ReservationParams = {
-  date: getNextThursday(),   // Next Thursday
-  timeStart: '19:00',        // 19:00 (7:00 PM)
-  duration: 60,              // Duration in minutes
-  schedule: 32101            // Schedule ID (optional, defaults to 32101)
+  date: getNextThursday(),
+  timeStart: BOOKING_TIME,
+  duration: 60,
+  schedule: 32101
 };
 
 console.log(`Booking for: ${reservationParams.date} at ${reservationParams.timeStart}`);

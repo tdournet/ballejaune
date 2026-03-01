@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      BJDEVICE: TTJpcGVHaThVb1pIdTVpcmpOREdzR2hVMk9xVTFaV0toYkducXFEK0xINm8zUkIzNEp3dG1qcWNsbGVYdG00KzRWTkZNbE5RUloydFd0WTBLS01TU0R1anMrR0VEMWs3YTFYVGlmNzBCREk9OjrVbbHKxDLQ0jitCcwqvhFQ
+      BJID: MUFOVkdxMTlWRkM4d21lSUp6YUR6akJDbGhSNG1CTzB3U3FHYk1mbWQxR2llK1MzaWRNdUhWOEs1SVlFaXRGZHpub3M0Z1Z1UlA4Q2tSQVhWY0RRVVVZWnpEM3dHdDl2eGxhanM5RUR1YlB2eWtJV1lwemhjWWpVUkRjV1JkNzU6Ovw%2Bmkbo258dHT9sXOfQbvM%3D
+      BOOKING_TIME: "19:00"
